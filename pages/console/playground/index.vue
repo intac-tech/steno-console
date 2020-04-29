@@ -57,12 +57,7 @@
           <split-pane split="horizontal">
             <template slot="paneL">
               <h2>Query</h2>
-              <prism-editor
-                v-model="code"
-                :line-numbers="lineNumbers"
-                class="playground-editor"
-                language="js"
-              />
+              <CodeEditor />
             </template>
 
             <template slot="paneR">
@@ -84,7 +79,12 @@
 </template>
 
 <script>
+import CodeEditor from '@/components/CodeEditor';
+// eslint-disable-next-line semi
 export default {
+  components: {
+    CodeEditor
+  },
   data: () => ({
     inset: false,
     code: '',
@@ -102,13 +102,16 @@ export default {
       }
     ]
   }),
+  mounted () {
+    console.log(this.$CodeMirror);
+  },
   methods: {
     resize (test = '') {
-      console.log(test)
+      console.log(test);
     },
     onTemplateSelect () {}
   }
-}
+};
 </script>
 
 <style>

@@ -15,13 +15,13 @@ export default {
     }
   },
   data () {
-    const classes = [this.$parent.split, this.className]
+    const classes = [this.$parent.split, this.className];
     return {
       classes: classes.join(' '),
       percent: 50
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>

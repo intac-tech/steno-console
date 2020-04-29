@@ -1,13 +1,8 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app clipped>
+    <v-navigation-drawer v-model="drawer" app :mini-variant="true" clipped permanent>
       <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.text"
-          link
-          @click="navigate(item.link)"
-        >
+        <v-list-item v-for="item in items" :key="item.text" link @click="navigate(item.link)">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -18,21 +13,17 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app clipped-left color="blue" dense>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar app clipped-left color="accent" dense>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Steno Console</span>
+        <img src="~/assets/images/LogoBar.png" height="40">
       </v-toolbar-title>
       <v-spacer />
-      <v-row align="center" style="max-width: 650px">
-        <v-text-field
-          :append-icon-cb="() => {}"
-          placeholder="Search..."
-          single-line
-          append-icon="mdi-magnify"
-          color="white"
-          hide-details
-        />
+      <v-row align="center" style="max-width: 50px">
+        <v-btn icon>
+          <v-icon color="secondary">
+            mdi-account
+          </v-icon>
+        </v-btn>
       </v-row>
     </v-app-bar>
 
@@ -69,12 +60,19 @@ export default {
     items2: []
   }),
   created () {
-    this.$vuetify.theme.dark = false
+    this.$vuetify.theme.dark = false;
   },
   methods: {
     navigate (link) {
-      this.$router.push(link)
+      this.$router.push(link);
     }
   }
-}
+};
 </script>
+<style scoped>
+.container {
+  padding: 0;
+  margin-left: 0;
+  margin-right: 0;
+}
+</style>

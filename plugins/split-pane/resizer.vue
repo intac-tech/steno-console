@@ -7,7 +7,7 @@ export default {
   props: {
     split: {
       validator (value) {
-        return ['vertical', 'horizontal'].includes(value)
+        return ['vertical', 'horizontal'].includes(value);
       },
       required: true
     },
@@ -19,11 +19,11 @@ export default {
   },
   computed: {
     classes () {
-      const classes = ['splitter-pane-resizer', this.split, this.className]
-      return classes.join(' ')
+      const classes = ['splitter-pane-resizer', this.split, this.className];
+      return classes.join(' ');
     }
   }
-}
+};
 </script>
 
 <style scoped>

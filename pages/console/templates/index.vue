@@ -2,94 +2,61 @@
   <div>
     <h1>Templates</h1>
     <v-container>
-      <v-row justify="space-around">
-        <v-col cols="12">
-          <v-select
-            v-model="color"
-            :items="colors"
-            label="Color"
-          />
-        </v-col>
-
-        <v-switch
-          v-model="drawer"
-          class="ma-2"
-          label="v-model"
-        />
-
-        <v-switch
-          v-model="miniVariant"
-          class="ma-2"
-          label="Mini variant"
-        />
-
-        <v-switch
-          v-model="expandOnHover"
-          class="ma-2"
-          label="Expand on hover"
-        />
-
-        <v-switch
-          v-model="background"
-          class="ma-2"
-          label="Background"
-        />
-
-        <v-switch
-          v-model="right"
-          class="ma-2"
-          label="Right"
-        />
-      </v-row>
-
-      <v-card
-        height="400"
-        class="overflow-hidden"
-      >
-        <v-navigation-drawer
-          v-model="drawer"
-          :color="color"
-          :expand-on-hover="expandOnHover"
-          :mini-variant="miniVariant"
-          :right="right"
-          :src="bg"
-          absolute
-          dark
+      <v-banner two-line>
+        <v-avatar slot="icon" color="green accent-4" size="40">
+          <v-icon icon="mdi-file-tree-outline" color="white">
+            mdi-file-tree-outline
+          </v-icon>
+        </v-avatar>
+        Three line text string example with two actions. One to two lines is preferable. Three lines should be considered the maximum string length on desktop in order to keep messages short and actionable.
+        <template
+          v-slot:actions
         >
-          <v-list
-            dense
-            nav
-            class="py-0"
-          >
-            <v-list-item two-line :class="miniVariant && 'px-0'">
-              <v-list-item-avatar>
-                <img src="https://randomuser.me/api/portraits/men/81.jpg">
-              </v-list-item-avatar>
-
-              <v-list-item-content>
-                <v-list-item-title>Application</v-list-item-title>
-                <v-list-item-subtitle>Subtext</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-divider />
-
-            <v-list-item
-              v-for="item in items"
-              :key="item.title"
-              link
-            >
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-navigation-drawer>
-      </v-card>
+          <v-btn text color="deep-purple accent-4">
+            Create a group
+          </v-btn>
+        </template>
+      </v-banner>
+      <v-expansion-panels>
+        <v-expansion-panel v-for="(item,i) in 5" :key="i">
+          <v-expansion-panel-header>Item</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            <v-banner single-line @click:icon="alert">
+              <v-icon
+                slot="icon"
+                color="warning"
+                size="36"
+              >
+                mdi-wifi-strength-alert-outline
+              </v-icon>
+              Template
+              <template v-slot:actions>
+                <v-btn
+                  color="primary"
+                  text
+                >
+                  Connecting Settings
+                </v-btn>
+              </template>
+            </v-banner>
+            <v-list flat>
+              <v-list-item-group v-model="itemData" color="primary">
+                <v-list-item
+                  v-for="(x, idx) in items"
+                  :key="idx"
+                >
+                  <v-list-item-icon>
+                    <v-icon v-text="x.icon" />
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="x.text" />
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-container>
   </div>
 </template>
@@ -98,32 +65,29 @@
 export default {
   data () {
     return {
-      drawer: true,
+      itemData: 1,
       items: [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-        { title: 'Photos', icon: 'mdi-image' },
-        { title: 'About', icon: 'mdi-help-box' }
+        { text: 'Real-Time', icon: 'mdi-clock' },
+        { text: 'Audience', icon: 'mdi-account' },
+        { text: 'Conversions', icon: 'mdi-flag' }
       ],
+      drawer: true,
       color: 'primary',
-      colors: [
-        'primary',
-        'blue',
-        'success',
-        'red',
-        'teal'
-      ],
+      colors: ['primary', 'blue', 'success', 'red', 'teal'],
       right: true,
       miniVariant: false,
       expandOnHover: false,
       background: false
-    }
+    };
   },
   computed: {
     bg () {
-      return this.background ? 'https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg' : undefined
+      return this.background
+        ? 'https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg'
+        : undefined;
     }
   }
-}
+};
 </script>
 
 <style></style>

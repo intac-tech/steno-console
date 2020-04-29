@@ -1,11 +1,11 @@
 <template>
-  <div></div>
+  <div />
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.$router.push('/console')
+  mounted () {
+    this.$router.push('/console');
   }
-}
+};
 </script>

@@ -17,7 +17,10 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,800;1,600&display=swap' }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -26,13 +29,18 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [
+    'codemirror/lib/codemirror.css',
+    'codemirror/theme/material-darker.css',
+    'codemirror/addon/hint/show-hint.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/split-pane',    
-    '~/plugins/prism-editor'
+    '~/plugins/split-pane',
+    '~/plugins/prism-editor',
+    { src: '~/plugins/codemirror', srr: false }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -58,9 +66,10 @@ module.exports = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
+    treeShake: true,
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -69,7 +78,18 @@ module.exports = {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          surface:'#F6FAFD'
+        },
+        light: {
+          primary: '#0160C2',
+          accent: '#01204E',
+          secondary: '#F6FAFD',
+          info: '#0160C2',
+          warning: colors.amber.base,
+          error: '#D42E35',
+          success: '#515459',
+          surface:'#F6FAFD'
         }
       }
     }
