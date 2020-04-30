@@ -1,34 +1,103 @@
 <template>
-  <v-container>
-    <v-row no-gutters>
-      <v-col class="column" cols="12" sm="2">
-        <v-navigation-drawer :height="getDrawerMinHeight" permanent>
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="title">
-                Application
-              </v-list-item-title>
-              <v-list-item-subtitle>Groups</v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+  <client-only>
+    <div class="dashboard">
+      <v-navigation-drawer :width="offsetWidth" fixed permanent>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="title">
+              Application
+            </v-list-item-title>
+            <v-list-item-subtitle>Groups</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
 
-          <v-divider />
-          <v-treeview :items="items" />
-        </v-navigation-drawer>
-      </v-col>
-      <v-col class="column" cols="12" sm="10">
-        <h1 class="welcome-text">
-          Welcome
-        </h1>
-      </v-col>
-    </v-row>
-  </v-container>
+        <v-divider />
+        <v-treeview :items="items" />
+      </v-navigation-drawer>
+      <section :style="{ 'padding-left': (offsetWidth + 30) + 'px' }">
+        <v-tabs v-model="tab">
+          <v-tab>
+            <label class="tab-header-txt">Schema</label>
+          </v-tab>
+          <v-tab>
+            <label class="tab-header-txt">Query</label>
+          </v-tab>
+        </v-tabs>
+        <div class="tab-data-items">
+          <v-tabs-items v-model="tab">
+            <v-tab-item>
+              <v-col class="column" cols="12">
+                <v-toolbar dense>
+                  <v-toolbar-title>Code</v-toolbar-title>
+                  <v-spacer />
+                  <v-btn text>
+                    Save
+                  </v-btn>
+                  <v-btn text>
+                    Analyze
+                  </v-btn>
+                </v-toolbar>
+                <div class="code-container">
+                  <CodeEditor id="schemaCodeId" />
+                </div>
+              </v-col>
+            </v-tab-item>
+            <v-tab-item>
+              <v-row no-gutters>
+                <v-col class="column" cols="12">
+                  <div class="split-container-wrapper">
+                    <split-pane :min-percent="20" split="vertical" @resize="resize">
+                      <template slot="paneL">
+                        <v-toolbar dense>
+                          <v-toolbar-title>Code</v-toolbar-title>
+                          <v-spacer />
+                          <v-btn text>
+                            Save
+                          </v-btn>
+                          <v-btn text>
+                            Analyze
+                          </v-btn>
+                        </v-toolbar>
+                        <div class="code-container">
+                          <CodeEditor id="codeId" />
+                        </div>
+                      </template>
+
+                      <template slot="paneR">
+                        <v-toolbar dense>
+                          <v-toolbar-title>Response</v-toolbar-title>
+                          <v-spacer />
+                          <v-btn text>
+                            Prettify
+                          </v-btn>
+                        </v-toolbar>
+                        <div class="code-container">
+                          <CodeEditor id="responseId" />
+                        </div>
+                      </template>
+                    </split-pane>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-tab-item>
+          </v-tabs-items>
+        </div>
+      </section>
+    </div>
+  </client-only>
 </template>
 
 <script>
+import CodeEditor from '@/components/CodeEditor';
+import schema from '@/static/sample-schema.json';
 export default {
+  components: {
+    CodeEditor
+  },
   data () {
     return {
+      tab: null,
+      offsetWidth: 230,
       items: [
         {
           id: 1,
@@ -108,11 +177,25 @@ export default {
     getDrawerMinHeight () {
       return process.client ? window.innerHeight - 50 : 0;
     }
+  },
+  mounted () {
+    console.log(schema);
+  },
+  methods: {
+    resize () {},
+    onTemplateSelect () {}
   }
 };
 </script>
 
 <style scoped>
+.dashboard {
+  padding-top: 20px;
+}
+.editor-header-txt {
+  font-size: 13;
+  font-weight: 600;
+}
 .column {
   padding-right: 15px;
 }
@@ -120,6 +203,25 @@ export default {
   font-weight: 400;
 }
 .v-navigation-drawer {
-  width: 100% !important;
+  top: 50px !important;
+  left: 60px;
+}
+.split-container-wrapper {
+  position: relative;
+  height: 100vh;
+}
+.playroud-api-selector {
+  padding: 10px;
+}
+.playground-editor {
+  height: 90%;
+}
+.tab-data-items {
+  padding-top: 20px;
+}
+.tab-header-txt {
+  font-weight: 400;
+  font-size: 20;
+  text-transform: uppercase;
 }
 </style>

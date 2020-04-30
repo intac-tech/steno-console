@@ -31,8 +31,9 @@ module.exports = {
    */
   css: [
     'codemirror/lib/codemirror.css',
-    'codemirror/theme/material-darker.css',
-    'codemirror/addon/hint/show-hint.css'
+    'codemirror/theme/mdn-like.css',
+    'codemirror/addon/hint/show-hint.css',
+    'codemirror/addon/scroll/simplescrollbars.css'
   ],
   /*
    ** Plugins to load before mounting the App

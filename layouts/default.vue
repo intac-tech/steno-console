@@ -1,6 +1,13 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app :mini-variant="true" clipped permanent>
+    <v-navigation-drawer
+      v-model="drawer"
+      width="60"
+      app
+      :mini-variant="true"
+      clipped
+      permanent
+    >
       <v-list dense>
         <v-list-item v-for="item in items" :key="item.text" link @click="navigate(item.link)">
           <v-list-item-action>
@@ -28,9 +35,7 @@
     </v-app-bar>
 
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <nuxt />
     </v-content>
   </v-app>
 </template>
@@ -74,5 +79,14 @@ export default {
   padding: 0;
   margin-left: 0;
   margin-right: 0;
+}
+.v-navigation-drawer {
+  width: 60px !important;
+}
+@media (min-width: 1904px) {
+  .container {
+    width: 100%;
+    max-width: 100%;
+  }
 }
 </style>

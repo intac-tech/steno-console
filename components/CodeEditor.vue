@@ -1,13 +1,25 @@
 <template>
-  <div>
-    <form>
-      <textarea id="code" name="code" />
+  <div class="wrap">
+    <form class="border">
+      <textarea :id="id" name="code" />
     </form>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    schema: {
+      required: false,
+      type: Object,
+      default: null
+    },
+    id: {
+      required: true,
+      default: '',
+      type: String
+    }
+  },
   data () {
     const dummy = {
       attrs: {
@@ -37,8 +49,9 @@ export default {
   mounted () {
     // eslint-disable-next-line nuxt/no-globals-in-created
     this.editor = this.$CodeMirror.fromTextArea(
-      document.getElementById('code'),
+      document.getElementById(this.id),
       {
+        scrollbarStyle: 'simple',
         autoCloseTags: true,
         matchBrackets: true,
         mode: 'xml',
@@ -55,6 +68,11 @@ export default {
         hintOptions: { schemaInfo: this.tags }
       }
     );
+    let content = 'foo\nbar\nbaz\nquux\n';
+    for (let i = 0; i < 2; ++i) {
+      content += content;
+    }
+    this.editor.setValue(content);
     this.editor.setOption('theme', 'material-darker');
   },
   methods: {
@@ -107,7 +125,4 @@ export default {
 </script>
 
 <style>
-.CodeMirror {
-  border: 1px solid #eee;
-}
 </style>
