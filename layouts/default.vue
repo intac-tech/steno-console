@@ -52,13 +52,13 @@ export default {
         link: '/console'
       },
       {
-        icon: 'mdi-console-network-outline',
-        text: 'Playground',
+        icon: 'mdi-database',
+        text: 'Database',
         link: '/console/playground'
       },
       {
-        icon: 'mdi-script-text-outline',
-        text: 'Templates',
+        icon: 'mdi-cog',
+        text: 'Settings',
         link: '/console/templates'
       }
     ],
